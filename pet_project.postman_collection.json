@@ -1,0 +1,172 @@
+{
+	"info": {
+		"_postman_id": "e83518a4-4f43-4208-80d2-fae9e16cf464",
+		"name": "pet_project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "tester auth signUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"firstName\": \"lionel\",\r\n   \"lastName\": \"messi\",\r\n   \"gender\": \"homme\",\r\n   \"email\": \"messi.10@example.com\",\r\n   \"password\": \"trri\",\r\n   \"phoneNumber\": \"22564785\",\r\n   \"role\": \"client\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2002/auth/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "tester auth signIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\": \"waelmajdoub@example.com\",\r\n   \"password\": \"tri\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2002/auth/signin"
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {      \"firstName\": \"yassine\",\r\n        \"lastName\": \"kacem\",\r\n        \"gender\": \"homme\",\r\n        \"email\": \"kacemyassine740@gmail.com\",\r\n        \"password\": \"$2a$10$sSR89DF3JhfNJYil1GDdhOKo5b5DaxoK9ZGdr2YGgoJEyKfydsDge\",\r\n        \"phoneNumber\": \"+216 95 716 180 \",\r\n        \"role\": \"seller\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2002/users/2"
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"firstName\": \"yassine\",\r\n        \"lastName\": \"kacem\",\r\n        \"gender\": \"homme\",\r\n        \"email\": \"kacemyassine7400@gmail.com\",\r\n        \"password\": \"$2a$10$sSR89DF3JhfNJYil1GDdhOKo5b5DaxoK9ZGdr2YGgoJEyKfydsDge\",\r\n        \"phoneNumber\": \"+216 95 716 180 \",\r\n        \"role\": \"seller\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2002/users"
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:2002/users/6"
+					},
+					"response": []
+				},
+				{
+					"name": "list all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:2002/users"
+					},
+					"response": []
+				},
+				{
+					"name": "get One user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:2002/users/4"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"category\" : \"accessory\" , \r\n\"description\" : \"accessoire (croquette saveur poisson ) pour chats \" , \r\n\"image\" : \"img1.png\" ,\r\n\"price\" : 10 , \r\n\"userId\" : 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2002/products"
+					},
+					"response": []
+				},
+				{
+					"name": "update products",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 8,\r\n        \"category\": \"food\",\r\n        \"description\": \"nourriture (croquette saveur poisson ) pour chats \",\r\n        \"image\": \"img1.png\",\r\n        \"price\": 10,\r\n        \"userId\": 4\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2002/products/8"
+					},
+					"response": []
+				},
+				{
+					"name": "list product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:2002/products"
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:2002/products/10"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
