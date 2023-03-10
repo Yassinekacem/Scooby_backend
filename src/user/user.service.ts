@@ -1,5 +1,5 @@
 import { db } from "../utils/db.server";
-import {role}  from "@prisma/client"
+import {Role}  from "@prisma/client"
 export type User = {
     id: number;
     firstName: string;
@@ -8,7 +8,7 @@ export type User = {
     email: string;
     password: string;
     phoneNumber: string; 
-    role : role ; 
+    role : Role ; 
 };
 
 export const listUsers = async (): Promise<User[]> => {

@@ -1,7 +1,8 @@
 import { db } from "../utils/db.server";
-import { role } from "@prisma/client";
+import { Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
 
 export type User = {
   id: number;
@@ -11,7 +12,8 @@ export type User = {
   email: string;
   password: string;
   phoneNumber: string;
-  role: role;
+  role: Role;
+  facebookId?: string;
 };
 
 export type AuthResponse = {

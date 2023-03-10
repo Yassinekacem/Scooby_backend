@@ -4,6 +4,7 @@ import cors from "cors" ;
 import { userRouter } from "./user/user.router"; 
 import { authRouter } from "./authentification/auth.router";
 import { productRouter } from "./product/product.router";
+import { announcementRouter } from "./Announcement/announcement.router";
 
 dotenv.config() ;
 
@@ -17,6 +18,7 @@ app.use(express.json()) ;
 app.use ("/users",userRouter) 
 app.use ("/auth" , authRouter)
 app.use ("/products" , productRouter)
+app.use ("/announcements", announcementRouter)
 app.listen(PORT , ()=> {
     console.log(`app listening on port ${PORT}`) ; 
 })

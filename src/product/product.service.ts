@@ -1,10 +1,10 @@
 import { db } from "../utils/db.server";
-import {category}  from "@prisma/client"
+import {Category}  from "@prisma/client"
 
 
 export type Product = {
     id: number;
-    category: category;
+    category: Category;
     description: string;
     image: string;
     price: number;
