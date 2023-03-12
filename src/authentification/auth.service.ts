@@ -2,6 +2,9 @@ import { db } from "../utils/db.server";
 import { Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv" ; 
+dotenv.config() ; 
+
 
 
 export type User = {
@@ -65,17 +68,19 @@ export const signup = async (
     },
   });
 
-  const token = jwt.sign({ userId: newUser.id , useremail : newUser.email , userpasswoed : newUser.password}, "mysecretkey");
+  const token = jwt.sign({ userId: newUser.id , useremail : newUser.email , userpasswoed : newUser.password , userRole : newUser.role}, "mysecretkey");
 
   return { user: newUser, token };
 };  
-
-
+if(!process.env.SECRET) {
+  process.exit(1) ; 
+} 
+const SECRET : string = process.env.SECRET 
 const secret = 'mysecretkey';
 
 // Fonction pour générer le token JWT
 function generateToken(user: User) {
-  const token = jwt.sign({ id: user.id }, secret, { expiresIn: '1d' });
+  const token = jwt.sign({ id: user.id }, SECRET, { expiresIn: '1d' });
   return token;
 }
 
@@ -96,7 +101,7 @@ export async function signIn(email: string, password: string): Promise<string> {
   }
   
   // Générer un token JWT pour l'utilisateur connecté
-  const token = jwt.sign({ userId: user.id , useremail : user.email , userpasswoed : user.password}, "mysecretkey");
+  const token = jwt.sign({ userId: user.id , useremail : user.email , userpassword : user.password , userRole : user.role}, "mysecretkey");
   
   return token;
 }
