@@ -21,7 +21,7 @@ export const getOneAnnouncement = async (req: Request, res: Response) => {
     }
 }
   
-export async function createAnnouncement(req: Request, res: Response) {
+export async function createAnnouncement1(req: Request, res: Response) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -53,8 +53,8 @@ export async function updateAnnouncement(req: Request, res: Response) {
   const id: number = parseInt(req.params.id, 10);
   try {
     const announcement = req.body;
-    const updateAnnouncement = await AnnouncementService.updateAnnouncement(announcement, id);
-    return res.status(200).json(updateAnnouncement);
+    const updatedAnnouncement = await AnnouncementService.updateAnnouncement1(announcement, id);
+    return res.status(200).json(updatedAnnouncement);
   } catch (error: any) {
     return res.status(500).json(error.message);
   }

@@ -1,7 +1,5 @@
 import express from "express";
-import  {Request , Response}  from "express";
-import {body,validationResult} from "express-validator" ; 
-import { request } from "http";
+import {body} from "express-validator" ; 
 import { checkAccessToken, checkAnnouncementOwnership,  checkRoleServiceProvider } from "../middleware/authorization.middleware";
 
 import * as AnnouncementController from "./announcement.controller";
@@ -19,20 +17,19 @@ announcementRouter.post(
     "/",checkAccessToken,checkRoleServiceProvider,
     body("type").isString(),
     body("description").isString(),
-    body("animalCible").isNumeric(),
+    body("animalCible").isArray(),
     body("city").isString(),
     body("userId").isNumeric(),
-    AnnouncementController.createAnnouncement
+    AnnouncementController.createAnnouncement1
 ); 
 
 
 announcementRouter.delete("/:id",checkAccessToken,checkRoleServiceProvider,checkAnnouncementOwnership,AnnouncementController.deleteAnnouncement)
 
-  announcementRouter.put(
-    "/:id",checkAccessToken,checkRoleServiceProvider,checkAnnouncementOwnership ,
+  announcementRouter.put( "/:id",checkAccessToken,checkRoleServiceProvider, 
     body("type").isString(),
     body("description").isString(),
-    body("animalCible").isNumeric(),
+    body("animalCible").isArray(),
     body("city").isString(),
     body("userId").isNumeric(),  
       AnnouncementController.updateAnnouncement

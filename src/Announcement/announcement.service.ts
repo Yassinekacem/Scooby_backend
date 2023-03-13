@@ -3,7 +3,6 @@ import { Announcement, PrismaClient, User } from '@prisma/client'
 import { Animal, Service } from "@prisma/client";
 import exp from "constants";
 
-const prisma = new PrismaClient()
 export type announcement1 = {
     id: number;
     type: Service;
@@ -32,8 +31,7 @@ export const listAnnouncement = async (): Promise<announcement1[]> => {
                     password : true , 
                     phoneNumber : true , 
                     role : true , 
-                    announcement : true , 
-                    product : true
+                    
                 }
             }
         },
@@ -74,7 +72,7 @@ export const createAnnouncement = async (
 
 
 
-export const updateAnnouncement = async (announcement: Omit<Announcement, "id">, id: number): Promise<Announcement> => {
+export const updateAnnouncement1 = async (announcement: Omit<Announcement, "id">, id: number): Promise<Announcement> => {
     const { type, description, city, animalCible, userId} = announcement;
     return db.announcement.update({
         where: {
