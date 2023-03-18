@@ -5,7 +5,10 @@ import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv" ; 
 dotenv.config() ; 
 
-
+if(!process.env.SECRET) {
+  process.exit(1) ; 
+} 
+const SECRET : string = process.env.SECRET 
 
 export type User = {
   id: number;
@@ -68,15 +71,11 @@ export const signup = async (
     },
   });
 
-  const token = jwt.sign({ userId: newUser.id , useremail : newUser.email , userpasswoed : newUser.password , userRole : newUser.role}, "mysecretkey");
+  const token = jwt.sign({ userId: newUser.id , useremail : newUser.email , userpasswoed : newUser.password , userRole : newUser.role}, SECRET);
 
   return { user: newUser, token };
 };  
-if(!process.env.SECRET) {
-  process.exit(1) ; 
-} 
-const SECRET : string = process.env.SECRET 
-const secret = 'mysecretkey';
+
 
 // Fonction pour générer le token JWT
 function generateToken(user: User) {
@@ -101,7 +100,7 @@ export async function signIn(email: string, password: string): Promise<string> {
   }
   
   // Générer un token JWT pour l'utilisateur connecté
-  const token = jwt.sign({ userId: user.id , useremail : user.email , userpassword : user.password , userRole : user.role}, "mysecretkey");
+  const token = jwt.sign({ userId: user.id , useremail : user.email , userpassword : user.password , userRole : user.role}, SECRET);
   
   return token;
 }
