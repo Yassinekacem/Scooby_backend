@@ -4,9 +4,9 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:moez64excsrqhj@196.234.188.168:5432/petShop"
 }
-
+// SECRET = "mysecretkey"DATABASE_URL="postgresql://postgres:moez64excsrqhj@196.234.188.168:5432/petShop"PORT = 2004
 model User {
   id           Int            @id @default(autoincrement())
   firstName    String
