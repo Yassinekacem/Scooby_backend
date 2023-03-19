@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:moez64excsrqhj@196.234.188.168:5432/petShop"
+  url      = "postgresql://postgres:moez64excsrqhj@localhost:5432/petShop"
 }
 // SECRET = "mysecretkey"DATABASE_URL="postgresql://postgres:moez64excsrqhj@196.234.188.168:5432/petShop"PORT = 2004
 model User {
