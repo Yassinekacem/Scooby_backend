@@ -7,7 +7,7 @@ export const authRouter = express.Router() ;
 
 
 authRouter.post("/signUp", 
-body("firstName").isString(), body("lastName").isString(), body("gender").isString(), body("email").isString(),body("password").isString(), body("phoneNumber").isString(), body("role").isString(),
+body("firstName").isString(), body("lastName").isString(), body("email").isString(),body("password").isString(), body("role").isString(),
  authController.signUp
 );  
 

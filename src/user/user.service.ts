@@ -1,15 +1,7 @@
 import { db } from "../utils/db.server";
-import {Role}  from "@prisma/client"
-export type User = {
-    id: number;
-    firstName: string;
-    lastName: string;
-    gender: string;
-    email: string;
-    password: string;
-    phoneNumber: string; 
-    role : Role ; 
-};
+import {Role}  from "@prisma/client" 
+import { User } from "@prisma/client";
+
 
 export const listUsers = async (): Promise<User[]> => {
     return db.user.findMany({
