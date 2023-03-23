@@ -12,12 +12,12 @@ export const productRouter = express.Router() ;
 productRouter.get("/" ,ProductController.listProducts) ;  
 
 // create product (only seller can do this)
-productRouter.post("/",checkAccessToken,checkRoleSeller,
-    body("category").isString(),body("description").isString(),body("price").isFloat(),body("image").isString(),body("userId").isNumeric(),
+productRouter.post("/",
+    body("category").isString(),body("description").isString(),body("price").isNumeric(),body("image").isString(),body("userId").isInt(),body("isDispo").isBoolean(),
     ProductController.createProduct); 
 
 // delete product (only seller and owner product can do this)
-productRouter.delete("/:id",checkAccessToken,checkRoleSeller,checkProductOwnership,ProductController.deleteProduct)
+productRouter.delete("/:id",ProductController.deleteProduct)
 
 // update product (only seller and owner product can do this)
   productRouter.put(

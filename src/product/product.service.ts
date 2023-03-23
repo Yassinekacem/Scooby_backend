@@ -1,15 +1,5 @@
 import { db } from "../utils/db.server";
-import {Category}  from "@prisma/client"
-
-
-export type Product = {
-    id: number;
-    category: Category;
-    description: string;
-    image: string;
-    price: number;
-    userId : number; 
-};
+import { Product } from "@prisma/client";
 
 
 
@@ -21,7 +11,8 @@ export const listProducts = async (): Promise<Product[]> => {
             description: true,
             image: true,
             price: true,
-            userId: true
+            userId: true,
+            isDispo : true
         },
     });
 }; 
@@ -36,7 +27,7 @@ export const getOneProduct = async (id: number): Promise<Product | null> => {
 export const createProduct = async (
     product: Omit<Product, "id">
 ): Promise<Product> => {
-    const { category, description, price, image, userId} = product;
+    const { category, description,isDispo, price, image, userId} = product;
     return db.product.create({
         data: {
             category,
@@ -44,6 +35,7 @@ export const createProduct = async (
             price,
             image,
             userId,
+            isDispo
 
         },
         select: {
@@ -53,6 +45,7 @@ export const createProduct = async (
             price: true,
             image: true,
             userId: true,
+            isDispo : true
             
 
         },
@@ -61,7 +54,7 @@ export const createProduct = async (
 
 
 export const updateProduct = async (product: Omit<Product, "id">, id: number): Promise<Product> => {
-    const { category, description, price, image, userId} = product;
+    const { category, description, price,isDispo, image, userId} = product;
     return db.product.update({
         where: {
             id,
@@ -72,6 +65,7 @@ export const updateProduct = async (product: Omit<Product, "id">, id: number): P
             price,
             image,
             userId,
+            isDispo
 
         },
         select: {
@@ -81,6 +75,7 @@ export const updateProduct = async (product: Omit<Product, "id">, id: number): P
             price: true,
             image: true,
             userId: true,
+            isDispo : true
             
 
         },

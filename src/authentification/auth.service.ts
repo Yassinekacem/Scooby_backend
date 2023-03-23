@@ -1,5 +1,4 @@
 import { db } from "../utils/db.server";
-import { Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv" ; 
@@ -10,8 +9,6 @@ if(!process.env.SECRET) {
   process.exit(1) ; 
 } 
 const SECRET : string = process.env.SECRET 
-
-
 export type AuthResponse = {
   user: User;
   token: string;
@@ -20,7 +17,7 @@ export type AuthResponse = {
 export const signup = async (
   user: Omit<User, "id">
 ): Promise<AuthResponse> => {
-  const { firstName, lastName, email, password,role } =user;
+  const { firstName, lastName, email, password } =user;
 
   // Vérifier si l'email existe déjà dans la base de données
   const existingUser = await db.user.findFirst({
@@ -42,7 +39,6 @@ export const signup = async (
       lastName,
       email,
       password: hashedPassword,
-      role
     },
     select: {
       id: true,
@@ -52,7 +48,7 @@ export const signup = async (
       email: true,
       password: true,
       phoneNumber: true,
-      role: true,
+      role : true,
     },
   });
 

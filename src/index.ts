@@ -6,6 +6,7 @@ import { authRouter } from "./authentification/auth.router";
 import { productRouter } from "./product/product.router";
 import { announcementRouter } from "./Announcement/announcement.router";
 
+
 dotenv.config() ;
 
 if(!process.env.PORT) {
