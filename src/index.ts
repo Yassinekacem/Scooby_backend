@@ -8,7 +8,7 @@ import { announcementRouter } from "./Announcement/announcement.router";
 
 
 dotenv.config() ;
-
+console.log('test :)')
 if(!process.env.PORT) {
     process.exit(1) ; 
 } 
