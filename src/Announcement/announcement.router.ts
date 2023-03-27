@@ -14,22 +14,22 @@ announcementRouter.get("/:id",AnnouncementController.getOneAnnouncement) ;
 
 
 announcementRouter.post(
-    "/",checkAccessToken,checkRoleServiceProvider,
+    "/",
     body("type").isString(),
     body("description").isString(),
-    body("animalCible").isArray(),
+    body("animalCible").isString(),
     body("city").isString(),
     body("userId").isNumeric(),
     AnnouncementController.createAnnouncement1
 ); 
 
 
-announcementRouter.delete("/:id",checkAccessToken,checkRoleServiceProvider,checkAnnouncementOwnership,AnnouncementController.deleteAnnouncement)
+announcementRouter.delete("/:id",AnnouncementController.deleteAnnouncement)
 
   announcementRouter.put( "/:id",checkAccessToken,checkRoleServiceProvider, 
     body("type").isString(),
     body("description").isString(),
-    body("animalCible").isArray(),
+    body("animalCible").isString(),
     body("city").isString(),
     body("userId").isNumeric(),  
       AnnouncementController.updateAnnouncement

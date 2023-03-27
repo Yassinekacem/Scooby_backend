@@ -1,4 +1,7 @@
 -- CreateEnum
+CREATE TYPE "gender" AS ENUM ('homme', 'femme');
+
+-- CreateEnum
 CREATE TYPE "Role" AS ENUM ('admin', 'client', 'serviceProvider', 'seller');
 
 -- CreateEnum
@@ -15,11 +18,11 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
-    "gender" TEXT,
+    "gender" "gender" NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "phoneNumber" TEXT,
-    "role" "Role",
+    "phoneNumber" TEXT NOT NULL,
+    "role" "Role" NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -41,7 +44,7 @@ CREATE TABLE "Product" (
 CREATE TABLE "Announcement" (
     "id" SERIAL NOT NULL,
     "type" "Service" NOT NULL,
-    "animalCible" "Animal"[],
+    "animalCible" "Animal" NOT NULL,
     "description" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,

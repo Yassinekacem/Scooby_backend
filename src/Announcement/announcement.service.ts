@@ -1,19 +1,8 @@
 import { db } from "../utils/db.server";
-import { Announcement, PrismaClient, User } from '@prisma/client' 
-import { Animal, Service } from "@prisma/client";
-import exp from "constants";
-
-export type announcement1 = {
-    id: number;
-    type: Service;
-    description: string;
-    animalCible: Animal[];
-    city: String ;
-    user : User ; 
-}; 
+import { Announcement } from '@prisma/client' 
 
 
-export const listAnnouncement = async (): Promise<announcement1[]> => {
+export const listAnnouncement = async (): Promise<Announcement[]> => {
     return db.announcement.findMany({
         select: {
             id: true,
@@ -21,19 +10,7 @@ export const listAnnouncement = async (): Promise<announcement1[]> => {
             description: true,
             animalCible: true,
             city: true,
-            user : {
-                select : {
-                    id : true , 
-                    firstName : true , 
-                    lastName : true , 
-                    gender : true , 
-                    email : true , 
-                    password : true , 
-                    phoneNumber : true , 
-                    role : true , 
-                    
-                }
-            }
+            userId : true
         },
     });
 }; 
@@ -53,7 +30,7 @@ export const createAnnouncement = async (
             type,
             description,
             animalCible,
-            city , 
+            city, 
             userId,
 
         },

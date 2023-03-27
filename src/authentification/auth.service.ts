@@ -17,7 +17,7 @@ export type AuthResponse = {
 export const signup = async (
   user: Omit<User, "id">
 ): Promise<AuthResponse> => {
-  const { firstName, lastName, email, password } =user;
+  const { firstName, lastName, email, password , phoneNumber,role , gender } =user;
 
   // Vérifier si l'email existe déjà dans la base de données
   const existingUser = await db.user.findFirst({
@@ -38,7 +38,11 @@ export const signup = async (
       firstName,
       lastName,
       email,
+      gender,
       password: hashedPassword,
+      role,
+      phoneNumber
+      
     },
     select: {
       id: true,

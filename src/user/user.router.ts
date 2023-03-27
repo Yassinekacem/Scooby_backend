@@ -43,6 +43,6 @@ userRouter.put (
 
 )  
 // delete user 
-userRouter.delete("/:id",checkAccessToken,checkUserOwnershipOrAdmin,userController.deleteUser) 
+userRouter.delete("/:id",userController.deleteUser) 
 
 
