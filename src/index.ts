@@ -5,6 +5,9 @@ import { userRouter } from "./user/user.router";
 import { authRouter } from "./authentification/auth.router";
 import { productRouter } from "./product/product.router";
 import { announcementRouter } from "./Announcement/announcement.router";
+import { animalRouter } from "./Animal/animal.router";
+import { lostdeclarationRouter } from "./Declarations/LostDeclaration/LostDeclaration.router";
+import { FoundDeclarationRouter } from "./Declarations/FoundDeclaration/FoundDeclaration.router";
 
 
 dotenv.config() ;
@@ -20,6 +23,9 @@ app.use ("/users",userRouter)
 app.use ("/auth" , authRouter)
 app.use ("/products" , productRouter)
 app.use ("/announcements", announcementRouter)
+app.use("/animals",animalRouter)
+app.use("/lostDeclarations",lostdeclarationRouter)
+app.use("/foundDeclarations",FoundDeclarationRouter)
 app.listen(PORT , ()=> {
     console.log(`app listening on port ${PORT}`) ; 
 })

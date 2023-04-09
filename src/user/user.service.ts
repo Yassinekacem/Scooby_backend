@@ -7,9 +7,9 @@ export const listUsers = async (): Promise<User[]> => {
     return db.user.findMany({
         select: {
             id: true,
+            photo :true,
             firstName: true,
             lastName: true,
-            gender: true,
             email: true,
             password: true,
             phoneNumber: true,
@@ -27,12 +27,12 @@ export const getOneUser = async (id: number): Promise<User | null> => {
 export const createUser = async (
     user: Omit<User, "id">
 ): Promise<User> => {
-    const { firstName, lastName, gender, email, phoneNumber, password , role} = user;
+    const { firstName, lastName, email, phoneNumber, password , role,photo} = user;
     return db.user.create({
         data: {
             firstName,
             lastName,
-            gender,
+            photo,
             email,
             phoneNumber,
             password,
@@ -43,18 +43,18 @@ export const createUser = async (
             id: true,
             firstName: true,
             lastName: true,
-            gender: true,
             email: true,
             password: true,
             phoneNumber : true , 
-            role : true
+            role : true,
+            photo : true
 
         },
     });
 };
 
 export const updateUser = async (user: Omit<User, "id">, id: number): Promise<User> => {
-    const { firstName, lastName, gender, email, phoneNumber, password , role} = user;
+    const { firstName, lastName, email, photo,phoneNumber, password , role} = user;
     return db.user.update({
         where: {
             id,
@@ -62,9 +62,9 @@ export const updateUser = async (user: Omit<User, "id">, id: number): Promise<Us
         data: {
             firstName,
             lastName,
-            gender,
             email,
             phoneNumber,
+            photo,
             password,
             role
 
@@ -73,7 +73,7 @@ export const updateUser = async (user: Omit<User, "id">, id: number): Promise<Us
             id: true,
             firstName: true,
             lastName: true,
-            gender: true,
+            photo :true,
             email: true,
             password: true,
             role: true , 

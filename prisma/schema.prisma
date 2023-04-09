@@ -1,73 +1,136 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
+// table user (qui peut etre un vendeur , prestataire de service , client , admin)
 model User {
-  id           Int            @id @default(autoincrement())
-  firstName    String
-  lastName     String
-  gender       gender
-  email        String         @unique
-  password     String
-  phoneNumber  String
-  role         Role
-  product      Product[]
+  id          Int    @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String @unique
+  photo       String //photo de lutlisateur 
+  password    String
+  phoneNumber String
+  role        Role
+  Product      Product[]
   announcement Announcement[]
-}
-enum gender { 
-  homme 
-  femme
+  Animal       Animal[]
+  
 }
 enum Role {
   admin
   client
-  serviceProvider
+  veterinary
+  petTrainer
+  petSitter
+  petGroomer
   seller
 }
+
+
+
+// table produit (qui peut etre "food" ou "accesoire")
 model Product {
-  id          Int     @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   category    Category
+  brandProduct String //marque de produit
   description String
+  animalCible Animalcible
   image       String
-  userId      Int
+  user        User        @relation(fields: [userId], references: [id],onDelete: Cascade)
   price       Float
   isDispo     Boolean
-  user        User    @relation(fields: [userId], references: [id])
+  userId      Int
 }
-
+enum Animalcible {
+  dog
+  cat
+  bird
+  pigeon
+  fish
+  parrot
+  hamster
+}
 enum Category {
   food
   accessory
-  animal
 }
 
+
+
+// table annonce de service 
 model Announcement {
-  id          Int      @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   type        Service
-  animalCible Animal
+  animalCible Animalcible[]
   description String
   city        String
-  user        User     @relation(fields: [userId], references: [id])
+  user        User          @relation(fields: [userId], references: [id],onDelete: Cascade)
   userId      Int
 }
 
 enum Service {
-  veterinaryCare
-  petSitter
-  petGroomer
-  petTrainer
+  veterinaryCaring
+  petSitting
+  petGrooming
+  petTraining
 }
 
-enum Animal {
+
+
+// table animal (a vendre ou a adopter)
+model Animal {
+  id      Int    @id @default(autoincrement())
+  species String
+  race    String
+  age     Float
+  isVaccinated   Boolean    //vacciné ou non  
+  isEducated Boolean //dressé ou non
+  gender  gender
+  status  status
+  price   Float
+  image   String
+  user    User   @relation(fields: [userId], references: [id],onDelete: Cascade)
+  userId  Int
+}
+enum gender {
+  male
+  female
+}
+enum status {
+  toSell
+  toAdopt
+}
+
+
+
+// annonce de declaration de perte d un animal 
+model LostDeclaration {
+  id          Int        @id @default(autoincrement())
+  image       String
+  animal      typeAnimal
+  race        String
+  description String
+  dateLost    String
+  placeLost   String
+  phoneNumber String
+  withReward  Boolean
+}
+// annonce de declaration de retrouveille d un animal 
+model FoundDeclaration {
+  id          Int        @id @default(autoincrement())
+  image       String
+  animal      typeAnimal
+  race        String
+  description String
+  dateFound   String
+  placeFound  String
+  phoneNumber String
+}
+enum typeAnimal {
   cat
   dog
-  pigeon
-  parrot
-  bird
-  fish
 }

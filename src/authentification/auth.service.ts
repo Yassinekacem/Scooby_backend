@@ -17,7 +17,7 @@ export type AuthResponse = {
 export const signup = async (
   user: Omit<User, "id">
 ): Promise<AuthResponse> => {
-  const { firstName, lastName, email, password , phoneNumber,role , gender } =user;
+  const { firstName, lastName,photo, email, password , phoneNumber,role  } =user;
 
   // Vérifier si l'email existe déjà dans la base de données
   const existingUser = await db.user.findFirst({
@@ -33,26 +33,29 @@ export const signup = async (
   }
     const hashedPassword = await bcrypt.hash(password, 10);
 
+  
+ 
+
   const newUser = await db.user.create({
     data: {
       firstName,
       lastName,
       email,
-      gender,
-      password: hashedPassword,
+      password : hashedPassword,
       role,
-      phoneNumber
+      phoneNumber,
+      photo
       
     },
     select: {
       id: true,
       firstName: true,
       lastName: true,
-      gender: true,
       email: true,
       password: true,
       phoneNumber: true,
       role : true,
+      photo : true
     },
   });
 
@@ -62,10 +65,7 @@ export const signup = async (
 };  
 
 
-function generateToken(user: User) {
-  const token = jwt.sign({ id: user.id }, SECRET, { expiresIn: '1d' });
-  return token;
-}
+
 
 export async function signIn(email: string, password: string): Promise<string> {
   const user = await db.user.findFirst({ where: { email } });

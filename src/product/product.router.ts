@@ -11,9 +11,13 @@ export const productRouter = express.Router() ;
 // get all products
 productRouter.get("/" ,ProductController.listProducts) ;  
 
+
+// get one product 
+productRouter.get("/:id" , ProductController.getOneProduct)
+
 // create product (only seller can do this)
 productRouter.post("/",
-    body("category").isString(),body("description").isString(),body("price").isNumeric(),body("image").isString(),body("userId").isInt(),body("isDispo").isBoolean(),
+    body("category").isString(),body("description").isString(),body("price").isNumeric(),body("image").isString(),body("userId").isInt(),body("isDispo").isBoolean(),body("brandProduct").isString(),
     ProductController.createProduct); 
 
 // delete product (only seller and owner product can do this)
@@ -21,8 +25,7 @@ productRouter.delete("/:id",ProductController.deleteProduct)
 
 // update product (only seller and owner product can do this)
   productRouter.put(
-    "/:id",checkAccessToken,checkRoleSeller,checkProductOwnership,
-    body("category").isString(),body("description").isString(),body("price").isFloat(),body("image").isString(),body("userId").isNumeric(), 
+    "/:id",
+    body("category").isString(),body("description").isString(),body("price").isNumeric(),body("image").isString(),body("userId").isInt(),body("isDispo").isBoolean(),body("brandProduct").isString(),
      ProductController.updateProduct)  
-  
   

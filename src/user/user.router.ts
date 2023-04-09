@@ -23,10 +23,10 @@ userRouter.post(
     "/",
     body("firstName").isString(),
     body("lastName").isString(),
-    body("gender").isString(),
     body("email").isString(),
     body("password").isString(),
     body("phoneNumber").isString(),
+    body("photo").isString,
     body("role").isString(),
     userController.createUser
 );
@@ -39,6 +39,7 @@ userRouter.put (
   body("email").isString(),
   body("password").isString(),
   body("phoneNumber").isString(),
+  body("photo").isString,
   body("role").isString(),  userController.updateUser
 
 )  

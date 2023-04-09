@@ -9,10 +9,12 @@ export const listProducts = async (): Promise<Product[]> => {
             id: true,
             category: true,
             description: true,
+            brandProduct : true,
             image: true,
             price: true,
             userId: true,
-            isDispo : true
+            isDispo : true,
+            animalCible : true
         },
     });
 }; 
@@ -27,14 +29,16 @@ export const getOneProduct = async (id: number): Promise<Product | null> => {
 export const createProduct = async (
     product: Omit<Product, "id">
 ): Promise<Product> => {
-    const { category, description,isDispo, price, image, userId} = product;
+    const { category, description,brandProduct,isDispo,animalCible, price, image, userId} = product;
     return db.product.create({
         data: {
             category,
             description,
+            brandProduct,
             price,
             image,
             userId,
+            animalCible,
             isDispo
 
         },
@@ -45,7 +49,9 @@ export const createProduct = async (
             price: true,
             image: true,
             userId: true,
-            isDispo : true
+            isDispo : true,
+            animalCible:true,
+            brandProduct :true
             
 
         },
@@ -54,18 +60,20 @@ export const createProduct = async (
 
 
 export const updateProduct = async (product: Omit<Product, "id">, id: number): Promise<Product> => {
-    const { category, description, price,isDispo, image, userId} = product;
+    const { category, description, price,brandProduct,isDispo, animalCible ,image, userId} = product;
     return db.product.update({
         where: {
             id,
         },
         data: {
             category,
+            brandProduct,
             description,
             price,
             image,
             userId,
-            isDispo
+            isDispo,
+            animalCible
 
         },
         select: {
@@ -75,7 +83,9 @@ export const updateProduct = async (product: Omit<Product, "id">, id: number): P
             price: true,
             image: true,
             userId: true,
-            isDispo : true
+            isDispo : true,
+            animalCible : true,
+            brandProduct : true
             
 
         },

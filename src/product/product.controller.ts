@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import * as ProductService from "./product.service";
 import { validationResult, body } from 'express-validator';
 
+
+
 export async function listProducts(req: Request, res: Response) {
   try {
     const products = await ProductService.listProducts();
@@ -10,6 +12,19 @@ export async function listProducts(req: Request, res: Response) {
     return res.status(500).json(error.message);
   }
 }
+
+
+export const getOneProduct = async (req: Request, res: Response) => {
+  const id : number = parseInt(req.params.id,10);
+  try {
+    const product = await ProductService.getOneProduct(id);
+    if ( product) {
+    return res.status(200).json(product) ; }
+  }catch(error : any){
+    return res.status(500).json(error.message) ; 
+  }
+}
+
 
 export async function createProduct(req: Request, res: Response) {
   const errors = validationResult(req);
@@ -25,6 +40,9 @@ export async function createProduct(req: Request, res: Response) {
   }
 }
 
+
+
+
 export async function deleteProduct(req: Request, res: Response) {
   const id: number = parseInt(req.params.id, 10);
   try {
@@ -35,9 +53,12 @@ export async function deleteProduct(req: Request, res: Response) {
   }
 }
 
+
+
 export async function updateProduct(req: Request, res: Response) {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
+  if (!errors.isEmpty()) 
+  {
     return res.status(400).json({ errors: errors.array() });
   }
   const id: number = parseInt(req.params.id, 10);
