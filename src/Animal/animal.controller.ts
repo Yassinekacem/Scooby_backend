@@ -2,9 +2,17 @@ import { Request, Response } from 'express';
 import * as AnimalService from "./animal.service";
 import { validationResult, body } from 'express-validator';
 
-export async function listAnimals(req: Request, res: Response) {
+export async function listAnimalsToSell(req: Request, res: Response) {
   try {
-    const animals = await AnimalService.listAnimals();
+    const animals = await AnimalService.listAnimalsToSell();
+    return res.status(200).json(animals);
+  } catch (error: any) {
+    return res.status(500).json(error.message);
+  }
+}
+export async function listAnimalsToAdopt(req: Request, res: Response) {
+  try {
+    const animals = await AnimalService.listAnimalsToAdopt();
     return res.status(200).json(animals);
   } catch (error: any) {
     return res.status(500).json(error.message);

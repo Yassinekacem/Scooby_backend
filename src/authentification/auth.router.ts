@@ -8,10 +8,13 @@ export const authRouter = express.Router() ;
 
 authRouter.post("/signup", 
 body("firstName").isString(), body("lastName").isString(), body("email").isString(),body("password").isString(), body("role").isString(),body("phoneNumber").isString(),body("photo").isString(),
+
  authController.signUp
 );  
 
 
 authRouter.post("/signIn" , body("email").isString(), body("password").isString(),authController.signIn);
 
-
+authRouter.put("/:id",
+body("firstName").isString(), body("lastName").isString(), body("email").isString(),body("password").isString(), body("role").isString(),body("phoneNumber").isString(),body("photo").isString(),body("createdAt").isString(),body("updatedAt").isString(),
+authController.updateUser)

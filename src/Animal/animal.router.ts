@@ -1,12 +1,14 @@
 import express from "express";
 import {body,validationResult} from "express-validator" ; 
-
+import { checkRoleSeller } from "../middleware/authorization.middleware";
+import {checkAccessToken} from "../middleware/authorization.middleware";
 import * as animalController from "./animal.controller"
 export const animalRouter = express.Router() ; 
 
-// get all animals
-animalRouter.get("/" ,animalController.listAnimals) ;  
+// get all animals to Adopt
+animalRouter.get("/toAdopt" ,animalController.listAnimalsToAdopt) ;  
 
+animalRouter.get("/toSell" ,animalController.listAnimalsToSell) ;  
 
 // get one animal
 animalRouter.get("/:id" , animalController.getOneAnimal)

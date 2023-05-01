@@ -1,5 +1,6 @@
+import { promises } from "dns";
 import { db } from "../utils/db.server";
-import { Announcement } from '@prisma/client' 
+import {  Announcement, Service, typeAnimal } from '@prisma/client' 
 
 
 export const listAnnouncement = async (): Promise<Announcement[]> => {
@@ -7,8 +8,14 @@ export const listAnnouncement = async (): Promise<Announcement[]> => {
         select: {
             id: true,
             type: true,
+            firstName : true,
+            lastName : true,
+            contact : true,
+            experience : true,
+            level : true ,
+            image : true,
+            ville : true,
             description: true,
-            animalCible: true,
             city: true,
             userId : true
         },
@@ -21,15 +28,33 @@ export const getOneAnnouncement = async (id: number): Promise<Announcement | nul
     });
 };  
 
+
+export const getAnnouncementsByCityAndType = async ( type: Service , city : string): Promise<Announcement[]> => {
+    return db.announcement.findMany({
+        where: { 
+            city,
+            type,
+        },
+    });
+};
+
+
+
 export const createAnnouncement = async (
     announcement: Omit<Announcement, "id">
 ): Promise<Announcement> => {
-    const { type, description, animalCible, city,  userId} = announcement;
+    const { type, firstName,lastName,contact,ville,image,experience,level,description, city,  userId} = announcement;
     return db.announcement.create({
         data: {
             type,
             description,
-            animalCible,
+            firstName,
+            lastName,
+            contact,
+            ville,
+            experience,
+            level,
+            image,
             city, 
             userId,
 
@@ -37,12 +62,16 @@ export const createAnnouncement = async (
         select: {
             id: true,
             type: true,
+            firstName : true,
+            lastName : true,
+            contact : true,
+            experience : true,
+            level : true ,
+            image : true,
+            ville : true,
             description: true,
-            animalCible: true,
             city: true,
-            userId: true,
-            
-
+            userId : true
         },
     });
 };
@@ -50,7 +79,7 @@ export const createAnnouncement = async (
 
 
 export const updateAnnouncement1 = async (announcement: Omit<Announcement, "id">, id: number): Promise<Announcement> => {
-    const { type, description, city, animalCible, userId} = announcement;
+    const { type, firstName,lastName,contact,ville,image,experience,level,description, city,  userId} = announcement;
     return db.announcement.update({
         where: {
             id,
@@ -58,18 +87,30 @@ export const updateAnnouncement1 = async (announcement: Omit<Announcement, "id">
         data: {
             type,
             description,
-            city,
-            animalCible,
+            firstName,
+            lastName,
+            contact,
+            ville,
+            experience,
+            level,
+            image,
+            city, 
             userId,
 
         },
         select: {
             id: true,
             type: true,
+            firstName : true,
+            lastName : true,
+            contact : true,
+            experience : true,
+            level : true ,
+            image : true,
+            ville : true,
             description: true,
-            animalCible: true,
             city: true,
-            userId: true,
+            userId : true
             
 
         },

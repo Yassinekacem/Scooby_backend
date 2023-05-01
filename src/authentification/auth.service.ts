@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv" ; 
 dotenv.config() ; 
 import { User } from "@prisma/client";
+import { now } from "moment";
 
 if(!process.env.SECRET) {
   process.exit(1) ; 
@@ -17,7 +18,7 @@ export type AuthResponse = {
 export const signup = async (
   user: Omit<User, "id">
 ): Promise<AuthResponse> => {
-  const { firstName, lastName,photo, email, password , phoneNumber,role  } =user;
+  const { firstName, lastName,photo, email, password , phoneNumber,role  ,createdAt,updatedAt} =user;
 
   // Vérifier si l'email existe déjà dans la base de données
   const existingUser = await db.user.findFirst({
@@ -40,6 +41,8 @@ export const signup = async (
     data: {
       firstName,
       lastName,
+      createdAt,
+      updatedAt,
       email,
       password : hashedPassword,
       role,
@@ -52,6 +55,8 @@ export const signup = async (
       firstName: true,
       lastName: true,
       email: true,
+      createdAt : true,
+      updatedAt : true,
       password: true,
       phoneNumber: true,
       role : true,
@@ -67,20 +72,64 @@ export const signup = async (
 
 
 
-export async function signIn(email: string, password: string): Promise<string> {
+export async function signIn( email: string, password: string): Promise<string > {
   const user = await db.user.findFirst({ where: { email } });
-  
+
   if (!user) {
-    throw new Error('Aucun utilisateur trouvé avec cet e-mail.');
+    throw new Error("Aucun utilisateur trouvé avec cet e-mail.");
   }
-  
+
   const validPassword = await bcrypt.compare(password, user.password);
-  
+
   if (!validPassword) {
-    throw new Error('Mot de passe incorrect.');
+    throw new Error("Mot de passe incorrect.");
   }
-  
-  const token = jwt.sign({ userId: user.id , useremail : user.email , userpassword : user.password , userRole : user.role}, SECRET);
-  
-  return token;
+
+  const token = jwt.sign(
+    {
+      userId: user.id,
+      useremail: user.email,
+      userRole: user.role,
+      firstName: user.firstName,
+    },
+    SECRET
+  );
+
+  return  token ;
 }
+
+export const updateUser = async (user: Omit<User, "id">, id: number): Promise<User> => {
+  const { firstName, lastName, email, phoneNumber, password , role,photo,createdAt,updatedAt} = user;
+  
+
+  return db.user.update({
+      where: {
+          id,
+      },
+      data: {
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          photo,
+          password ,
+          role,
+          updatedAt ,
+          createdAt,
+
+      },
+      select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          photo :true,
+          email: true,
+          password: true,
+          role: true , 
+          phoneNumber : true ,
+          createdAt:true,
+          updatedAt : true
+
+      },
+  });
+};

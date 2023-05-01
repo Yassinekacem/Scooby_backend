@@ -1,26 +1,49 @@
 import { db } from "../utils/db.server";
 import { Animal } from "@prisma/client";
 
+// afficher tous les animaux à vendre 
+export const listAnimalsToSell = async (): Promise<Animal[]> => {
+  return db.animal.findMany({
+    where: {
+      status: "toSell",
+    },
+    select: {
+      id: true,
+      isEducated: true,
+      isVaccinated: true,
+      species: true,
+      race: true,
+      price: true,
+      image: true,
+      userId: true,
+      age: true,
+      gender: true,
+      status: true,
+    },
+  });
+};
+// afficher tous les animaux à adopter 
+export const listAnimalsToAdopt = async (): Promise<Animal[]> => {
+  return db.animal.findMany({
+    where: {
+      status: "toAdopt",
+    },
+    select: {
+      id: true,
+      isEducated: true,
+      isVaccinated: true,
+      species: true,
+      race: true,
+      price: true,
+      image: true,
+      userId: true,
+      age: true,
+      gender: true,
+      status: true,
+    },
+  });
+};
 
-
-export const listAnimals= async (): Promise<Animal[]> => {
-    return db.animal.findMany({
-        select: {
-            id: true,
-            isEducated:true,
-            isVaccinated:true,
-            species :true,
-            race:true,
-            price:true,
-            image:true,
-            userId:true,
-            age:true,
-            gender:true,
-            status:true
-
-        },
-    });
-}; 
 
 export const getOneAnimal = async (id: number): Promise<Animal | null> => {
     return db.animal.findUnique({

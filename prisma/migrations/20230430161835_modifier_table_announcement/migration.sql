@@ -1,11 +1,11 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('admin', 'client', 'serviceProvider', 'seller');
-
--- CreateEnum
-CREATE TYPE "Animalcible" AS ENUM ('dog', 'cat', 'bird', 'pigeon', 'fish', 'parrot', 'hamster');
+CREATE TYPE "Role" AS ENUM ('admin', 'client', 'veterinary', 'petTrainer', 'petSitter', 'petGroomer', 'petShop', 'petSeller', 'animalOwner');
 
 -- CreateEnum
 CREATE TYPE "Category" AS ENUM ('food', 'accessory');
+
+-- CreateEnum
+CREATE TYPE "Level" AS ENUM ('basique', 'intermediaire', 'personnalise');
 
 -- CreateEnum
 CREATE TYPE "Service" AS ENUM ('veterinaryCaring', 'petSitting', 'petGrooming', 'petTraining');
@@ -25,9 +25,12 @@ CREATE TABLE "User" (
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "photo" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
     "role" "Role" NOT NULL,
+    "createdAt" TEXT NOT NULL,
+    "updatedAt" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -36,8 +39,9 @@ CREATE TABLE "User" (
 CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "category" "Category" NOT NULL,
+    "brandProduct" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "animalCible" "Animalcible" NOT NULL,
+    "animalCible" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "isDispo" BOOLEAN NOT NULL,
@@ -50,7 +54,13 @@ CREATE TABLE "Product" (
 CREATE TABLE "Announcement" (
     "id" SERIAL NOT NULL,
     "type" "Service" NOT NULL,
-    "animalCible" "Animalcible"[],
+    "firstName" TEXT NOT NULL,
+    "lastNAme" TEXT NOT NULL,
+    "contact" TEXT NOT NULL,
+    "ville" TEXT NOT NULL,
+    "experience" INTEGER NOT NULL,
+    "level" "Level" NOT NULL,
+    "image" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
@@ -64,6 +74,8 @@ CREATE TABLE "Animal" (
     "species" TEXT NOT NULL,
     "race" TEXT NOT NULL,
     "age" DOUBLE PRECISION NOT NULL,
+    "isVaccinated" BOOLEAN NOT NULL,
+    "isEducated" BOOLEAN NOT NULL,
     "gender" "gender" NOT NULL,
     "status" "status" NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
@@ -106,10 +118,10 @@ CREATE TABLE "FoundDeclaration" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Product" ADD CONSTRAINT "Product_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Announcement" ADD CONSTRAINT "Announcement_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Announcement" ADD CONSTRAINT "Announcement_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Animal" ADD CONSTRAINT "Animal_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Animal" ADD CONSTRAINT "Animal_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

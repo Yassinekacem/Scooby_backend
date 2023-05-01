@@ -32,15 +32,18 @@ userRouter.post(
 );
 // update user
 userRouter.put (
-  "/:id",checkAccessToken, checkUserOwnershipOrAdmin, 
+  "/:id",
   body("firstName").isString(),
   body("lastName").isString(),
-  body("gender").isString(),
   body("email").isString(),
   body("password").isString(),
   body("phoneNumber").isString(),
   body("photo").isString,
-  body("role").isString(),  userController.updateUser
+  body("role").isString(),
+  body("createdAt").isString(),
+  body("updatedAt").isString(),
+
+    userController.updateUser
 
 )  
 // delete user 

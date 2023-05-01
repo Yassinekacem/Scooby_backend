@@ -31,3 +31,18 @@ export const signUp = async (req: Request, res: Response) => {
     }
   };
 
+
+  export const updateUser = async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const id: number = parseInt(req.params.id, 10);
+    try {
+      const user = req.body;
+      const updatedUser = await authService.updateUser(user, id);
+      return res.status(200).json(updatedUser);
+    } catch (error: any) {
+      return res.status(500).json(error.message);
+    }
+  };

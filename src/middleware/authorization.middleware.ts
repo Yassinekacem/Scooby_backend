@@ -29,7 +29,7 @@ export const checkRoleAdmin=(req: Request, res: Response, next: NextFunction) =>
 // verifier le role (est ce qu il est un vendeur ou non )
 export const checkRoleSeller=(req: Request, res: Response, next: NextFunction) => {
   const {userRole}=res.locals.user;
-  if(userRole!=='seller')
+  if(userRole!=='petSeller')
     throw new Error('Unauthoriazed action to manage products .');
   next();
 }; 
