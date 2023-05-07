@@ -17,6 +17,7 @@ export const listAnnouncement = async (): Promise<Announcement[]> => {
             ville : true,
             description: true,
             city: true,
+            comment : true,
             userId : true
         },
     });
@@ -34,6 +35,21 @@ export const getAnnouncementsByCityAndType = async ( type: Service , city : stri
         where: { 
             city,
             type,
+        },
+        select: {
+            id: true,
+            type: true,
+            firstName : true,
+            lastName : true,
+            contact : true,
+            experience : true,
+            level : true ,
+            image : true,
+            ville : true,
+            comment : true,
+            description: true,
+            city: true,
+            userId : true
         },
     });
 };

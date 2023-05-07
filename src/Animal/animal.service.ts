@@ -1,7 +1,6 @@
 import { db } from "../utils/db.server";
 import { Animal } from "@prisma/client";
 
-// afficher tous les animaux à vendre 
 export const listAnimalsToSell = async (): Promise<Animal[]> => {
   return db.animal.findMany({
     where: {
@@ -11,6 +10,9 @@ export const listAnimalsToSell = async (): Promise<Animal[]> => {
       id: true,
       isEducated: true,
       isVaccinated: true,
+      name : true,
+      dateOfBirth : true,
+      description : true,
       species: true,
       race: true,
       price: true,
@@ -32,6 +34,9 @@ export const listAnimalsToAdopt = async (): Promise<Animal[]> => {
       id: true,
       isEducated: true,
       isVaccinated: true,
+      name : true,
+      dateOfBirth : true,
+      description : true,
       species: true,
       race: true,
       price: true,
@@ -55,10 +60,13 @@ export const getOneAnimal = async (id: number): Promise<Animal | null> => {
 export const addAnimal = async (
     animal: Omit<Animal, "id">
 ): Promise<Animal> => {
-    const { species, race,age, price,gender,status,image, userId,isEducated,isVaccinated} = animal;
+    const { species, race,age, price,gender,status,image, name,dateOfBirth,description,userId,isEducated,isVaccinated} = animal;
     return db.animal.create({
         data: {
             species,
+            name,
+            dateOfBirth,
+            description,
             race,
             price,
             image,
@@ -74,6 +82,9 @@ export const addAnimal = async (
             id: true,
             isEducated:true,
             isVaccinated:true,
+            name : true,
+            dateOfBirth : true,
+            description : true,
             species :true,
             race:true,
             price:true,
@@ -89,8 +100,8 @@ export const addAnimal = async (
 
 
 export const updateAnimal = async (animal: Omit<Animal, "id">, id: number): Promise<Animal> => {
-    const { species, race,age, price, gender,status,image, userId,isEducated,isVaccinated} = animal;
-    return db.animal.update({
+  const { species, race,age, price,gender,status,image, name,dateOfBirth,description,userId,isEducated,isVaccinated} = animal;
+  return db.animal.update({
         where: {
             id,
         },
@@ -109,19 +120,22 @@ export const updateAnimal = async (animal: Omit<Animal, "id">, id: number): Prom
 
         },
         select: {
-            id: true,
-            species :true,
-            race:true,
-            price:true,
-            image:true,
-            userId:true,
-            age:true,
-            gender:true,
-            status:true,
-            isEducated :true,
-            isVaccinated : true
-            
-        },
+          id: true,
+          isEducated:true,
+          isVaccinated:true,
+          name : true,
+          dateOfBirth : true,
+          description : true,
+          species :true,
+          race:true,
+          price:true,
+          image:true,
+          userId:true,
+          age:true,
+          gender:true,
+          status:true
+
+      },
     });
 };
 

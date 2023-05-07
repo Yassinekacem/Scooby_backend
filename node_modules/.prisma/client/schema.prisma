@@ -1,27 +1,33 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 // table user (qui peut etre un vendeur , prestataire de service , client , admin)
 model User {
-  id          Int    @id @default(autoincrement())
-  firstName   String
-  lastName    String
-  email       String @unique
-  photo       String //photo de lutlisateur 
-  password    String
-  phoneNumber String
-  role        Role
-  createdAt   String 
-  updatedAt   String
+  id           Int            @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  email        String         @unique
+  photo        String //photo de lutlisateur 
+  password     String
+  phoneNumber  String
+  role         Role
+  createdAt    String
+  updatedAt    String
   Product      Product[]
   announcement Announcement[]
   Animal       Animal[]
-  
+
+  comment  comment[]
+  Post     Post[]
+  Response Response[]
 }
+
 enum Role {
   admin
   client
@@ -34,20 +40,18 @@ enum Role {
   animalOwner
 }
 
-
-
 // table produit (qui peut etre "food" ou "accesoire")
 model Product {
-  id          Int         @id @default(autoincrement())
-  category    Category
+  id           Int      @id @default(autoincrement())
+  category     Category
   brandProduct String //marque de produit
-  description String
-  animalCible String
-  image       String
-  user        User        @relation(fields: [userId], references: [id],onDelete: Cascade)
-  price       Float
-  isDispo     Boolean
-  userId      Int
+  description  String
+  animalCible  String
+  image        String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  price        Float
+  isDispo      Boolean
+  userId       Int
 }
 
 enum Category {
@@ -55,11 +59,9 @@ enum Category {
   accessory
 }
 
-
-
 // table annonce de service 
 model Announcement {
-  id          Int           @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   type        Service
   firstName   String
   lastName    String
@@ -70,14 +72,17 @@ model Announcement {
   image       String
   description String
   city        String
-  user        User          @relation(fields: [userId], references: [id],onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int
+  comment     comment[]
 }
+
 enum Level {
   basique
   intermediaire
   personnalise
 }
+
 enum Service {
   veterinaryCaring
   petSitting
@@ -85,33 +90,34 @@ enum Service {
   petTraining
 }
 
-
-
 // table animal (a vendre ou a adopter)
 model Animal {
-  id      Int    @id @default(autoincrement())
-  species String
-  race    String
-  age     Float
-  isVaccinated   Boolean    //vacciné ou non  
-  isEducated Boolean //dressé ou non
-  gender  gender
-  status  status
-  price   Float
-  image   String
-  user    User   @relation(fields: [userId], references: [id],onDelete: Cascade)
-  userId  Int
+  id           Int     @id @default(autoincrement())
+  species      String
+  race         String
+  dateOfBirth  String
+  name         String
+  description  String
+  age          Float
+  isVaccinated Boolean //vacciné ou non  
+  isEducated   Boolean //dressé ou non
+  gender       gender
+  status       status
+  price        Float
+  image        String
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int
 }
+
 enum gender {
   male
   female
 }
+
 enum status {
   toSell
   toAdopt
 }
-
-
 
 // annonce de declaration de perte d un animal 
 model LostDeclaration {
@@ -125,6 +131,7 @@ model LostDeclaration {
   phoneNumber String
   withReward  Boolean
 }
+
 // annonce de declaration de retrouveille d un animal 
 model FoundDeclaration {
   id          Int        @id @default(autoincrement())
@@ -136,7 +143,46 @@ model FoundDeclaration {
   placeFound  String
   phoneNumber String
 }
+
 enum typeAnimal {
-  cat
-  dog
+  chat
+  chien
+}
+
+model comment {
+  id             Int          @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  message        String
+  createdAt      String
+  stars          Int
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int
+  announcement   Announcement @relation(fields: [announcementId], references: [id])
+  announcementId Int
+}
+
+model Post {
+  id        Int        @id @default(autoincrement())
+  firstName String
+  lastName  String
+  content   String
+  createdAt String
+  image     String
+  user      User       @relation(fields: [userId], references: [id] , onDelete: Cascade)
+  userId    Int
+  Response  Response[]
+}
+
+model Response {
+  id        Int    @id @default(autoincrement())
+  firstName String
+  lastName  String
+  response  String
+  image     String
+  createdAt String
+  user      User   @relation(fields: [userId], references: [id]  , onDelete: Cascade)
+  userId    Int
+  post      Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    Int
 }

@@ -1,6 +1,5 @@
 import express from "express";
 import {body} from "express-validator" ; 
-import { checkAccessToken, checkAnnouncementOwnership,  checkRoleServiceProvider } from "../middleware/authorization.middleware";
 
 import * as AnnouncementController from "./announcement.controller";
 export const announcementRouter = express.Router() ; 
@@ -34,7 +33,7 @@ announcementRouter.post(
 
 announcementRouter.delete("/:id",AnnouncementController.deleteAnnouncement)
 
-  announcementRouter.put( "/:id",checkAccessToken,checkRoleServiceProvider, 
+  announcementRouter.put( "/:id", 
     body("type").isString(),
     body("description").isString(),
     body("animalCible").isString(),

@@ -17,7 +17,7 @@ CREATE TYPE "gender" AS ENUM ('male', 'female');
 CREATE TYPE "status" AS ENUM ('toSell', 'toAdopt');
 
 -- CreateEnum
-CREATE TYPE "typeAnimal" AS ENUM ('cat', 'dog');
+CREATE TYPE "typeAnimal" AS ENUM ('chat', 'chien');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -55,7 +55,7 @@ CREATE TABLE "Announcement" (
     "id" SERIAL NOT NULL,
     "type" "Service" NOT NULL,
     "firstName" TEXT NOT NULL,
-    "lastNAme" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
     "contact" TEXT NOT NULL,
     "ville" TEXT NOT NULL,
     "experience" INTEGER NOT NULL,
@@ -73,6 +73,9 @@ CREATE TABLE "Animal" (
     "id" SERIAL NOT NULL,
     "species" TEXT NOT NULL,
     "race" TEXT NOT NULL,
+    "dateOfBirth" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "age" DOUBLE PRECISION NOT NULL,
     "isVaccinated" BOOLEAN NOT NULL,
     "isEducated" BOOLEAN NOT NULL,
@@ -114,6 +117,33 @@ CREATE TABLE "FoundDeclaration" (
     CONSTRAINT "FoundDeclaration_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "comment" (
+    "id" SERIAL NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "message" TEXT NOT NULL,
+    "createdAt" TEXT NOT NULL,
+    "stars" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "announcementId" INTEGER NOT NULL,
+
+    CONSTRAINT "comment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Post" (
+    "id" SERIAL NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "createdAt" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
+
+    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -125,3 +155,12 @@ ALTER TABLE "Announcement" ADD CONSTRAINT "Announcement_userId_fkey" FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE "Animal" ADD CONSTRAINT "Animal_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "comment" ADD CONSTRAINT "comment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "comment" ADD CONSTRAINT "comment_announcementId_fkey" FOREIGN KEY ("announcementId") REFERENCES "Announcement"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Post" ADD CONSTRAINT "Post_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

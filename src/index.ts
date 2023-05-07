@@ -8,6 +8,9 @@ import { announcementRouter } from "./Announcement/announcement.router";
 import { animalRouter } from "./Animal/animal.router";
 import { lostdeclarationRouter } from "./Declarations/LostDeclaration/LostDeclaration.router";
 import { FoundDeclarationRouter } from "./Declarations/FoundDeclaration/FoundDeclaration.router";
+import { commentRouter } from "./Comment/comment.router";
+import { postRouter } from "./post/post.router";
+import { responseRouter } from "./response/response.router";
 
 
 dotenv.config() ;
@@ -26,6 +29,9 @@ app.use ("/announcements", announcementRouter)
 app.use("/animals",animalRouter)
 app.use("/lostDeclarations",lostdeclarationRouter)
 app.use("/foundDeclarations",FoundDeclarationRouter)
+app.use("/comments",commentRouter)
+app.use("/posts" , postRouter)
+app.use("/responses" , responseRouter)
 app.listen(PORT , ()=> {
     console.log(`app listening on port ${PORT}`) ; 
 })

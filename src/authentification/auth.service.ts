@@ -91,6 +91,8 @@ export async function signIn( email: string, password: string): Promise<string >
       useremail: user.email,
       userRole: user.role,
       firstName: user.firstName,
+      lastName : user.lastName,
+      userImage : user.photo,
     },
     SECRET
   );
