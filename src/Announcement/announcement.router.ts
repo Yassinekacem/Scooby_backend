@@ -11,8 +11,9 @@ announcementRouter.get("/", AnnouncementController.listAnnouncements) ;
 // get one announcement 
 announcementRouter.get("/:id",AnnouncementController.getOneAnnouncement) ;  
 // get Announcement by city and type service 
-announcementRouter.get("/:type/:city", AnnouncementController.getAnnouncementsByCityAndType);
-
+ announcementRouter.get("/:type/:city", AnnouncementController.getAnnouncementsByCityAndType);
+// get avg of all reviews
+announcementRouter.get("/review/avg-stars/:id",AnnouncementController.getAvgStars);
 
 announcementRouter.post(
     "/",

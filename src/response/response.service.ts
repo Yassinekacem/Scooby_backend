@@ -53,3 +53,11 @@ export const addResponse = async (
         },
     });
 };
+
+export const deleteResponse = async (id: number): Promise<void> => {
+    await db.response.delete({
+        where: {
+            id: id,
+        },
+    });
+};

@@ -22,6 +22,37 @@ export const listAnnouncement = async (): Promise<Announcement[]> => {
         },
     });
 }; 
+export interface AvgStarsInfo {
+    avgStars: number;
+    commentCount: number;
+  }
+  
+  export const getAvgStars = async (id: number): Promise<AvgStarsInfo> => {
+    const announcement = await db.announcement.findUnique({
+      where: { id: id },
+      include: { comment: true },
+    });
+  
+    if (!announcement) {
+      throw new Error(`Announcement with ID ${id} not found.`);
+    }
+  
+    const commentCount = announcement.comment.length;
+  
+    if (commentCount === 0) {
+      return { avgStars: 0, commentCount: commentCount };
+    }
+  
+    const totalStars = announcement.comment.reduce(
+      (acc, comment) => acc + comment.stars,
+      0
+    );
+    const avgStars =  Math.round(totalStars / commentCount ) 
+    
+    return {  avgStars , commentCount };
+  };
+  
+  
 
 export const getOneAnnouncement = async (id: number): Promise<Announcement | null> => {
     return db.announcement.findUnique({

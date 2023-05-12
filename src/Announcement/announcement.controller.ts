@@ -22,6 +22,19 @@ export const getOneAnnouncement = async (req: Request, res: Response) => {
     }
 }
 
+
+export async function getAvgStars(req: Request, res: Response) {
+  const id : number = parseInt(req.params.id,10);
+  
+  try {
+    const avgStars = await AnnouncementService.getAvgStars(id);
+    return res.status(200).json({ avgStars });
+  } catch (error: any) {
+    return res.status(500).json(error.message);
+  }
+}
+
+
 function parseServiceType(typeString: string): Service {
   const validTypes = ["veterinaryCaring", "petSitting", "petGrooming", "petTraining"];
   if (validTypes.includes(typeString)) {

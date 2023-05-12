@@ -11,6 +11,7 @@ import { FoundDeclarationRouter } from "./Declarations/FoundDeclaration/FoundDec
 import { commentRouter } from "./Comment/comment.router";
 import { postRouter } from "./post/post.router";
 import { responseRouter } from "./response/response.router";
+import { replyRouter } from "./Reply/reply.router";
 
 
 dotenv.config() ;
@@ -32,6 +33,7 @@ app.use("/foundDeclarations",FoundDeclarationRouter)
 app.use("/comments",commentRouter)
 app.use("/posts" , postRouter)
 app.use("/responses" , responseRouter)
+app.use("/reply",replyRouter)
 app.listen(PORT , ()=> {
     console.log(`app listening on port ${PORT}`) ; 
 })

@@ -26,6 +26,7 @@ model User {
   comment  comment[]
   Post     Post[]
   Response Response[]
+  Reply    Reply[]
 }
 
 enum Role {
@@ -169,20 +170,34 @@ model Post {
   content   String
   createdAt String
   image     String
-  user      User       @relation(fields: [userId], references: [id] , onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
   Response  Response[]
 }
 
 model Response {
-  id        Int    @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   firstName String
   lastName  String
   response  String
   image     String
   createdAt String
-  user      User   @relation(fields: [userId], references: [id]  , onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
-  post      Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    Int
+  Reply     Reply[]
+}
+
+model Reply {
+  id         Int      @id @default(autoincrement())
+  firstName  String
+  lastName   String
+  reply      String
+  image      String
+  createdAt  String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  response   Response @relation(fields: [responseId], references: [id])
+  responseId Int
 }

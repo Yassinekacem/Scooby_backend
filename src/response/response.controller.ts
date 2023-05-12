@@ -40,3 +40,14 @@ export async function addResponse (req: Request, res: Response) {
       return res.status(500).json(error.message);
     }
   }
+
+  
+export const deleteResponse = async (req: Request, res: Response) => {
+  const id: number = parseInt(req.params.id, 10);
+  try {
+    await ResponseService.deleteResponse(id);
+    return res.status(200).json(`the response with id ${id} has been deleted successfully`);
+  } catch (error: any) {
+    return res.status(400).json(error.message);
+  }
+};

@@ -23,3 +23,6 @@ responseRouter.post(
     body("userId").isInt(),
     ResponseController.addResponse
 ); 
+
+
+responseRouter.delete("/:id",ResponseController.deleteResponse) 
