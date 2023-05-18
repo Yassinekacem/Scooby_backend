@@ -21,6 +21,7 @@ FoundDeclarationRouter.post(
     body("phoneNumber").isString(),
     body("dateFound").matches(/^\d{4}-\d{2}-\d{2}$/).withMessage("Le champ dateFound doit être dans le format aaaa-mm-jj."),
     body("placeFound").isString(),
+    body("userId").isInt(),
     FoundDeclarationController.createFoundDeclaration
 );
 
@@ -38,6 +39,7 @@ FoundDeclarationRouter.delete("/:id",FoundDeclarationController.deleteFoundDecla
   body("phoneNumber").isString(),
   body("dateFound").isDate(),
   body("placeFound").isString(),
+  body("userId").isInt(),
       FoundDeclarationController.updateFoundDeclaration
   )  
   

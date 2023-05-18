@@ -13,7 +13,8 @@ export const listLostDeclaration = async (): Promise<LostDeclaration[]> => {
             dateLost: true,
             placeLost: true,
             phoneNumber : true,
-            withReward : true
+            withReward : true,
+            userId : true,
 
             
         },
@@ -29,7 +30,7 @@ export const getOneLostDeclaration = async (id: number): Promise<LostDeclaration
 export const createLostDeclaration = async (
     LostDeclaration: Omit<LostDeclaration, "id">
 ): Promise<LostDeclaration> => {
-    const { image, description, animal, race,dateLost,  phoneNumber,placeLost,withReward} = LostDeclaration;
+    const { image, description, animal, race,dateLost,  phoneNumber,placeLost,withReward , userId} = LostDeclaration;
     return db.lostDeclaration.create({
         data: {
             image,
@@ -39,7 +40,8 @@ export const createLostDeclaration = async (
             dateLost,
             placeLost,
             phoneNumber,
-            withReward
+            withReward , 
+            userId
 
         },
         select: {
@@ -51,7 +53,8 @@ export const createLostDeclaration = async (
             dateLost: true,
             placeLost: true,
             withReward: true,
-            phoneNumber :true
+            phoneNumber :true,
+            userId : true
         },
     });
 };
@@ -59,7 +62,7 @@ export const createLostDeclaration = async (
 
 
 export const updateLostDeclaration = async (LostDeclaration: Omit<LostDeclaration, "id">, id: number): Promise<LostDeclaration> => {
-    const { image, description, animal, race,dateLost,  phoneNumber,placeLost,withReward} = LostDeclaration;
+    const { image, description, animal, race,dateLost,  phoneNumber,placeLost,withReward , userId}  = LostDeclaration;
     return db.lostDeclaration.update({
         where: {
             id,
@@ -72,7 +75,8 @@ export const updateLostDeclaration = async (LostDeclaration: Omit<LostDeclaratio
             dateLost,
             placeLost,
             phoneNumber,
-            withReward
+            withReward, 
+            userId
 
         },
         select: {
@@ -84,7 +88,8 @@ export const updateLostDeclaration = async (LostDeclaration: Omit<LostDeclaratio
             dateLost: true,
             placeLost: true,
             withReward: true,
-            phoneNumber :true
+            phoneNumber :true,
+            userId : true
             
 
         },

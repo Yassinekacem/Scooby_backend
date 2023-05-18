@@ -12,7 +12,8 @@ export const listFoundDeclaration = async (): Promise<FoundDeclaration[]> => {
             description: true,
             dateFound: true,
             placeFound: true,
-            phoneNumber : true
+            phoneNumber : true,
+            userId : true 
         },
     });
 }; 
@@ -26,7 +27,7 @@ export const getOneFoundDeclaration = async (id: number): Promise<FoundDeclarati
 export const createFoundDeclaration = async (
     FoundDeclaration: Omit<FoundDeclaration, "id">
 ): Promise<FoundDeclaration> => {
-    const { image, description, animal, race,dateFound,  phoneNumber,placeFound} = FoundDeclaration;
+    const { image, description, animal, race,dateFound,  phoneNumber,placeFound , userId} = FoundDeclaration;
     return db.foundDeclaration.create({
         data: {
             image,
@@ -35,7 +36,8 @@ export const createFoundDeclaration = async (
             race, 
             dateFound,
             placeFound,
-            phoneNumber
+            phoneNumber,
+            userId
 
         },
         select: {
@@ -46,7 +48,8 @@ export const createFoundDeclaration = async (
             description: true,
             dateFound: true,
             placeFound: true,
-            phoneNumber :true
+            phoneNumber :true,
+            userId : true
         },
     });
 };
@@ -54,7 +57,7 @@ export const createFoundDeclaration = async (
 
 
 export const updateFoundDeclaration = async (FoundDeclaration: Omit<FoundDeclaration, "id">, id: number): Promise<FoundDeclaration> => {
-    const { image, description, animal, race,dateFound,  phoneNumber,placeFound} = FoundDeclaration;
+    const { image, description, animal, race,dateFound,  phoneNumber, userId, placeFound} = FoundDeclaration;
     return db.foundDeclaration.update({
         where: {
             id,
@@ -66,7 +69,8 @@ export const updateFoundDeclaration = async (FoundDeclaration: Omit<FoundDeclara
             race, 
             dateFound,
             placeFound,
-            phoneNumber,
+            phoneNumber, 
+            userId
            },
         select: {
             id: true,
@@ -76,7 +80,8 @@ export const updateFoundDeclaration = async (FoundDeclaration: Omit<FoundDeclara
             description: true,
             dateFound: true,
             placeFound: true,
-            phoneNumber :true
+            phoneNumber :true , 
+            userId : true
             
 
         },

@@ -35,11 +35,17 @@ announcementRouter.post(
 announcementRouter.delete("/:id",AnnouncementController.deleteAnnouncement)
 
   announcementRouter.put( "/:id", 
-    body("type").isString(),
-    body("description").isString(),
-    body("animalCible").isString(),
-    body("city").isString(),
-    body("userId").isNumeric(),  
+  body("type").isString(),
+  body("description").isString(),
+  body("firstName").isString(),
+  body("lastName").isString(),
+  body("contact").isString(),
+  body("image").isString(),
+  body("experience").isInt(),
+  body("level").isString(),
+  body("ville").isString(),
+  body("city").isString(),
+  body("userId").isNumeric(),
       AnnouncementController.updateAnnouncement
   )  
   
