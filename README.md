@@ -1,2 +1,2 @@
 # pet
-petShop and petServices
+backend of pet app
