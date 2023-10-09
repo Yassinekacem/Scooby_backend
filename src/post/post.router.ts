@@ -18,6 +18,8 @@ postRouter.post(
     body("lastName").isString(),
     body("content").isString(),
     body("image").isString(),
+    body("photoUser").isString(),
+    body("subject").isString(),
     body("createdAt").isString(),
     body("userId").isInt(),
     PostController.createPost
@@ -32,11 +34,13 @@ postRouter.delete("/:id",PostController.deletePost)
   postRouter.put( "/:id", 
   body("firstName").isString(),
     body("lastName").isString(),
+    body("photoUser").isString(),
+    body("subject").isString(),
     body("content").isString(),
     body("image").isString(),
     body("createdAt").isString(),
     body("userId").isInt(),
-      PostController.updatePost
+    PostController.updatePost
   )  
   
   

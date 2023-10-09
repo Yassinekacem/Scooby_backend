@@ -11,6 +11,8 @@ export const listPosts = async (): Promise<Post[]> => {
             content : true,
             createdAt : true,
             image : true,
+            subject : true,
+            photoUser : true,
             userId : true
         },
     });
@@ -28,24 +30,28 @@ export const getOnePost = async (id: number): Promise<Post | null> => {
 export const createPost = async (
     post: Omit<Post, "id">
 ): Promise<Post> => {
-    const {  firstName,lastName,content,createdAt,image ,userId} = post;
+    const {  firstName,lastName,content,subject,photoUser,createdAt,image ,userId} = post;
     return db.post.create({
         data: {
             content,
             createdAt,
             firstName,
             lastName,
+            photoUser,
+            subject,
             image,
             userId,
 
         },
         select: {
             id: true,
-            createdAt: true,
             firstName : true,
             lastName : true,
             content : true,
+            createdAt : true,
             image : true,
+            subject : true,
+            photoUser : true,
             userId : true
         },
     });
@@ -54,7 +60,7 @@ export const createPost = async (
 
 
 export const updatePost = async (post: Omit<Post, "id">, id: number): Promise<Post> => {
-    const {  firstName,lastName,content,createdAt,image ,userId} = post;
+    const {  firstName,lastName,content,subject,photoUser,createdAt,image ,userId} = post;
     return db.post.update({
         where: {
             id,
@@ -64,17 +70,21 @@ export const updatePost = async (post: Omit<Post, "id">, id: number): Promise<Po
             createdAt,
             firstName,
             lastName,
+            photoUser,
+            subject,
             image,
             userId,
 
         },
         select: {
             id: true,
-            createdAt: true,
             firstName : true,
             lastName : true,
             content : true,
+            createdAt : true,
             image : true,
+            subject : true,
+            photoUser : true,
             userId : true
         },
     });

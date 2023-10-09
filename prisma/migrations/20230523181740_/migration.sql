@@ -138,6 +138,8 @@ CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
+    "photoUser" TEXT NOT NULL,
+    "subject" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "createdAt" TEXT NOT NULL,
     "image" TEXT NOT NULL,
